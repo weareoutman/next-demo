@@ -15,6 +15,7 @@ jobs:
       matrix:
         node-version: [20.x]
 
+    steps:
     - uses: actions/checkout@v4
 
     - name: Use Node.js ${{ matrix.node-version }}
@@ -54,14 +55,14 @@ jobs:
     - run: yarn build
 
     - name: Deploy to Netlify (pull request)
-      id: netlify-deploy
+      id: netlify-deploy-pull-request
       uses: nwtgck/actions-netlify@v3.0
       with:
         publish-dir: './build'
         production-branch: main
         github-token: ${{ secrets.GITHUB_TOKEN }}
         deploy-message: "${{ github.event.pull_request.title }}"
-        alias: docs-preview-${{ github.event.number }}
+        alias: preview-${{ github.event.number }}
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -69,7 +70,7 @@ jobs:
       if: github.event_name == 'pull_request'
 
     - name: Deploy to Netlify (push)
-      id: netlify-deploy
+      id: netlify-deploy-push
       uses: nwtgck/actions-netlify@v3.0
       with:
         publish-dir: './build'

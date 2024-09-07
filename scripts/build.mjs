@@ -30,6 +30,9 @@ await Promise.all([
   "netlify.toml",
 ].map((file) => cp(path.join(__dirname, "..", file), path.join(buildDir, path.basename(file)))));
 
+await mkdir(path.join(buildDir, "api/v1"), { recursive: true });
+await writeFile(path.join(buildDir, "api/v1/runtime_standalone"), '{"data":{}}');
+
 const brickPackageNames = ["basic", "icons", "illustrations", "form", "shoelace"];
 
 const brickPackages = await Promise.all(brickPackageNames.map(async (pkg) => {

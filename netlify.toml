@@ -4,6 +4,11 @@
   status = 200
 
 [[headers]]
+  for = "api/v1/runtime_standalone"
+  [headers.values]
+    Content-Type = "application/json"
+
+[[headers]]
   for = "*.js" # js files should be set this way
   [headers.values]
     Cache-Control = "public, max-age=604800"

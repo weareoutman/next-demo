@@ -9,3 +9,28 @@
         - brick: eo-page-title
           properties:
             pageTitle: Hello World
+        - brick: eo-link
+          properties:
+            url: /x
+            textContent: Go to X
+- app:
+    id: x
+    name: X
+    homepage: /x
+  routes:
+    - path: ${APP.homepage}
+      exact: true
+      bricks:
+        - brick: eo-page-title
+          properties:
+            pageTitle: Hello X
+        - brick: eo-link
+          properties:
+            url: ${APP.homepage}/y
+            textContent: Go to X/Y
+    - path: ${APP.homepage}/y
+      exact: true
+      bricks:
+        - brick: eo-page-title
+          properties:
+            pageTitle: Hello X/Y
